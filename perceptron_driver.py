@@ -107,37 +107,47 @@ def bonus_question_one(mRange, RUNS=1000):
     
     return bdiff
 
-def bonus_question_two(kRange, RUNS=100):
+def bonus_question_two(kRange, RUNS=1000):
     m = 100
     epsilon = 0.05
-    avg_steps = []
+    bdiff = []
 
     for k in kRange:
-        avg_steps.append(0)
+        ws = []
+        bs = []
         for _ in range(RUNS):
             x, y = generate_data(k, m, epsilon=epsilon)
             p = Perceptron(k)
             p.train(x, y)
-            avg_steps[-1] += p.steps
+            ws.append(p.w)
+            bs.append(p.b)
+        bdiff.append(bonus_diff(ws, bs))
     
-    return avg_steps
+    return bdiff
 
-def bonus_question_three(eRange, RUNS=100):
-    m = 100
+
+def bonus_question_three(eRange, RUNS=1000):
     k = 5
-    avg_steps = []
+    m = 100
+    bdiff = []
 
     for epsilon in eRange:
-        avg_steps.append(0)
+        ws = []
+        bs = []
         for _ in range(RUNS):
             x, y = generate_data(k, m, epsilon=epsilon)
             p = Perceptron(k)
             p.train(x, y)
-            avg_steps[-1] += p.steps
+            ws.append(p.w)
+            bs.append(p.b)
+        bdiff.append(bonus_diff(ws, bs))
     
-    return avg_steps
+    return bdiff
 
-#main driver
+
+###
+# main driver
+###
 
 if __name__ == "__main__":
     for i in bonus_question_one(np.arange(20, 201, 20)): print(i)
