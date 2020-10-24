@@ -23,15 +23,14 @@ class Perceptron:
     def update(self, vector, label):
         self.w += vector * label
         self.b += label
+        self.steps += 1
 
     def train_single_vector(self, vector, label):
-        self.steps += 1
         if not self.is_correct(vector, label):
             self.update(vector, label)
     
     def train(self, dataset, labels):
         unfinished, i = self.some_is_incorrect(dataset, labels)
         while unfinished:
-            self.steps += 1
             self.update(dataset[i], labels[i])
             unfinished, i = self.some_is_incorrect(dataset, labels)
